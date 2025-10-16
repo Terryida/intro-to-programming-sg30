@@ -1,0 +1,307 @@
+* Quick Recap From Yesterday
+
+* The Elements of Programming
+
+- A programming language - framework within which we organize our ideas about "processes"
+
+- We need a means to combine simple ideas to form more complex ideas.
+  
+- Every powerful programming language must have these 3 things to do this:
+
+"primitive expressions"
+     which represent the simplest entities the language is concerned
+     with,
+
+"means of combination"
+     by which compound elements are built from simpler ones, and
+
+"means of abstraction"
+     by which compound elements can be named and manipulated as units.
+
+     
+** Expressions and the Python REPL, PDB
+
+You type an "expression", and the "interpreter" responds by "evaluating" it.
+
+(R)ead
+(E)valuate
+(P)rint
+(L)oop
+
+Some "primitive" expressions:
+: 486
+
+An expression with "primitive" procedures:
+: 1 + 1
+
+** Naming Things
+- Using names to refer to "computational" objects.  Simplest means for abstraction
+
+: a = 10
+: a * 20
+
+This:
+: square = lambda x: x * x
+
+is similar to:
+
+#+begin_src python :results output
+def square(x):
+    return x * x
+#+end_src
+
+Basic building block in defining other procedures:
+
+#+begin_src python :results output
+def square(x):
+    return x * x
+
+
+def sum_of_squares(x, y):
+    return square(x) + square(y)
+
+print(sum_of_squares(3, 4))
+#+end_src
+
+#+RESULTS:
+: 25
+
+** Conditional Expressions and Predicates, Looping
+
+#+begin_src text
+           /
+           |   x  if x > 0
+     |x| = <   0  if x = 0
+           |  -x  if x < 0
+           \
+#+end_src
+
+Using the "if" statement:
+
+#+begin_src python :results output
+def my_abs(x):
+    breakpoint()
+    if x > 0:
+        return x
+    elif x == 0:
+        return 0
+    else:   # < x 0
+        return (x * -1)
+
+my_abs(17)
+#+end_src
+
+Using the "for" statement:
+
+#+begin_src python :results output
+class_pips = list(range(0, 12))
+
+for student in class_pips:
+    print(student)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+#+end_example
+
+* Basic Data Structures
+
+- Why?
+
+  Common Running Times:
+
+  | Function | Name         |
+  |----------+--------------|
+  | log(n)   | Logarithmic  |
+  | log²(n)  | Log-square   |
+  | √n       | Root n       |
+  | n        | Linear       |
+  | nlog(n)  | Linearithmic |
+  | n²       | Quadratic    |
+  | n³       | cubic        |
+  | n⁴       | quartic      |
+  | 2^n      | Exponential  |
+  | e^n      | Exponential  |
+  | n!       | Factorial    |
+  |          |              |
+
+
+
+
+- Brief intro to big O notation for our data structures
+
+Lists:
+| Operation | Big(O) |
+|-----------+--------|
+| Append    | O(1)   |
+| Pop()     | O(1)   |
+| Insert    | O(n)   |
+| Get       | O(1)   |
+| Set       | O(1)   |
+| Del       | O(1)   |
+| Iteration | O(n)   |
+
+#+begin_src python :results output
+my_list = []
+my_list.append(1)
+my_list.append(3)
+my_list.append(28)
+my_list.append(6)
+my_list.pop()
+for x in range(0, len(my_list)):
+    print(my_list[x])
+my_list.remove(1)
+print(my_list)
+#+end_src
+
+#+RESULTS:
+: 1
+: 3
+: 28
+: [3, 28]
+
+Dictionary:
+
+#+begin_src python :results output
+my_dict = {
+    "a": 1,
+    "b": 2
+}
+
+print(my_dict)
+
+#+end_src
+
+#+RESULTS:
+: {'a': 1, 'b': 2}
+
+| Operation | Big(O) |
+|-----------+--------|
+| k in d    | O(1)   |
+| Copy      | O(n)   |
+| Get       | O(1)   |
+| Set       | O(1)   |
+| Del       | O(1)   |
+| Iteration | O(n)   |
+
+How to use a dictionary
+
+This is 2^n
+#+begin_src python :results output
+def fibonacci_naive(n):
+    if n <= 1:
+        return n
+    else:
+        return fibonacci_naive(n - 1) + fibonacci_naive(n - 2)
+
+print(fibonacci_naive(5))
+#+end_src
+
+#+RESULTS:
+: 5
+
+Time: O(n)
+#+begin_src python :results output
+def nth_fibonacci_util(n, memo):
+    # Base case: if n is 0 or 1, return n
+    if n <= 1:
+        return n
+
+    # Check if the result is already in the memo table
+    if memo[n] != -1:
+        return memo[n]
+
+    # Recursive case: calculate Fibonacci number
+    # and store it in memo
+    memo[n] = nth_fibonacci_util(n - 1, memo) + nth_fibonacci_util(n - 2, memo)
+
+    return memo[n]
+
+
+# Wrapper function that handles both initialization
+# and Fibonacci calculation
+def nth_fibonacci(n):
+
+    # Create a memoization table and initialize with -1
+    memo = [-1] * (n + 1)
+
+    # Call the utility function
+    return nth_fibonacci_util(n, memo)
+
+print(nth_fibonacci(7))
+#+end_src
+
+#+RESULTS:
+: 13
+
+Time: O(log(n))
+#+begin_src python :results output
+
+# Function to multiply two 2x2 matrices
+def multiply(mat1, mat2):
+
+    # Perform matrix multiplication
+    x = mat1[0][0] * mat2[0][0] + mat1[0][1] * mat2[1][0]
+    y = mat1[0][0] * mat2[0][1] + mat1[0][1] * mat2[1][1]
+    z = mat1[1][0] * mat2[0][0] + mat1[1][1] * mat2[1][0]
+    w = mat1[1][0] * mat2[0][1] + mat1[1][1] * mat2[1][1]
+
+    # Update matrix mat1 with the result
+    mat1[0][0], mat1[0][1] = x, y
+    mat1[1][0], mat1[1][1] = z, w
+
+# Function to perform matrix exponentiation
+def matrix_power(mat1, n):
+
+    # Base case for recursion
+    if n == 0 or n == 1:
+        return
+
+    # Initialize a helper matrix
+    mat2 = [[1, 1], [1, 0]]
+
+    # Recursively calculate mat1^(n // 2)
+    matrix_power(mat1, n // 2)
+
+    # Square the matrix mat1
+    multiply(mat1, mat1)
+
+    # If n is odd, multiply by the helper matrix mat2
+    if n % 2 != 0:
+        multiply(mat1, mat2)
+
+# Function to calculate the nth Fibonacci number
+def nth_fibonacci(n):
+    if n <= 1:
+        return n
+
+    # Initialize the transformation matrix
+    mat1 = [[1, 1], [1, 0]]
+
+    # Raise the matrix mat1 to the power of (n - 1)
+    matrix_power(mat1, n - 1)
+
+    # The result is in the top-left cell of the matrix
+    return mat1[0][0]
+
+
+print(nth_fibonacci(10))
+#+end_src
+
+#+RESULTS:
+: 55
+
+* Practice
+
