@@ -1,0 +1,41 @@
+* Introduction
+
+- Expectations?
+- Motivation for the course?
+- What do you know?
+- Why Python?
+- Guest Lectures
+
+* Preface
+
+A computer is like a violin.  You can imagine a novice trying
+first a phonograph and then a violin.  The latter, he says, sounds
+terrible.  That is the argument we have heard from our humanists
+and most of our computer scientists.  Computer programs are good,
+they say, for particular purposes, but they aren't flexible.
+Neither is a violin, or a typewriter, until you learn how to use
+it.
+
+--Marvin Minsky, "Why Programming Is a Good Medium for Expressing
+Poorly-Understood and Sloppily-Formulated Ideas"
+
+* How to think about Programs
+
+Computational Processes are abstract beings that inhabit computers.  As they evolve, processes manipulate other abstract things called data.   The evolution process is directed by a pattern of rules called a program.  People create programs to direct processes.   In effect, we conjure the spirits of the computer with our spells.
+- Data
+- Computations
+- Actions  
+
+* Let's practice
+
+Let's build a program that auto-selects someone to contribute in the room
+
+#+begin_src python :results output
+import random
+
+
+print(random.randint(0, 10))
+#+end_src
+
+#+RESULTS:
+: 7
