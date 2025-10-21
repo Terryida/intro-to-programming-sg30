@@ -93,7 +93,7 @@ In bioinformatics, regex helps with:
   #+begin_src python :results output
 import re
 
-dna = "ATGCGTAGCTAGTGA"
+dna = "ATGCGTTGAGCTAGA"
 pattern = "AGCTAG"
 
 match = re.search(pattern, dna)
@@ -102,15 +102,15 @@ if match:
   #+end_src
 
   #+RESULTS:
-  : Found start codon at position: 6
+  : Found start codon at position: 8
 
   Find all matches:
   #+begin_src python :results output
 
 import re
 
-dna = "ATGCGTATGCTTATGATGA"
-pattern = "ATG"
+dna = "ATATATA"
+pattern = "ATA"
 
 matches = re.findall(pattern, dna)
 print("Matches:", matches)
@@ -118,9 +118,11 @@ print("Count:", len(matches))
   #+end_src
 
   #+RESULTS:
-  : Matches: ['ATG', 'ATG', 'ATG', 'ATG']
-  : Count: 4
+  : Matches: ['ATA', 'ATA']
+  : Count: 2
 
+- [For the class] Question: How do you find overlapping matches using Python's regex?
+  
   Extract sequence IDs:
 
   #+begin_src python :results output
@@ -129,11 +131,14 @@ import re
 fasta_header = ">sp|Q9H9K5|ABC_TRANSPORTER_HUMAN ATP-binding cassette transporter OS=Homo sapiens"
 
 pattern = r"^>sp\|([A-Z0-9]+)\|([A-Z_]+)"
+
 match = re.search(pattern, fasta_header)
 
 if match:
     print("Accession:", match.group(1))
     print("Protein name:", match.group(2))
+else:
+    print("No match")
   #+end_src
 
   #+RESULTS:
