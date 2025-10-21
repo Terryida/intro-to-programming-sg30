@@ -47,7 +47,15 @@ For more:
 : git help -g
 
 * Basic I/O + Modules in Python
-
+** Python Modules
+- Modules are used to cluster related functions/classes together - Think of these like libraries
+- Understanding how imports in Python work
+- Handy tools to inspect modules/functions:
+  - =help(...)=
+  - =inspect(...)=
+  - =dir(...)=
+- Point of research: with "> python 3.11", do we need the "__init__.py"?  Research.  Why?
+** I/O
 Basic input:
 
 #+begin_src python :results output
