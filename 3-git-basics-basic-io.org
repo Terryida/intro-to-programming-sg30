@@ -70,11 +70,12 @@ with open("/tmp/test.txt", "r") as _f:
     content = _f.read()
     print(content)
 
-
 with open("/tmp/test.txt", "w") as _f:
-    content = _f.write("this is test")
+    content = _f.write("This is intro to bio-informatics")
     print(content)
 #+end_src
+
+How do you read CSV, TSV, FASTA files (and other file formats really)?
 
 * Basic Regex
 
